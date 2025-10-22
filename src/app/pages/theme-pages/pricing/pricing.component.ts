@@ -5,6 +5,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { PaymentService } from './payment.service';
 import { loadStripe, StripeCardElement } from '@stripe/stripe-js';
+import { environment } from 'src/environments/environment';
 
 // card 1
 interface rules {
@@ -33,8 +34,8 @@ export class AppPricingComponent {
   card: StripeCardElement | null = null;
   stripe: any;
   packType : string;
-  stripePromise = loadStripe('pk_test_51R22CFFS8kUFVqJj4cE66DnsTM1xsCqvOPSU1mOCpySLeQRospuLJUmpPl1B0RZgtsYyOEdMJiwBC3BTvFWaqm5Y00OA1aOX3Z');
-
+  stripePromise = loadStripe(environment.STRIPE_key)
+  
   constructor(private paymentService: PaymentService) {}
 
   // yearlyPrice: any = (a: any, b: number) => ;
