@@ -13,6 +13,7 @@ export class PaymentService {
   charge(data: { token: string, packType: string }): Observable<any> {
     const currentUserString = localStorage.getItem('currentUser');
     let headers = new HttpHeaders();
+    //to do
 
     if (currentUserString) {
       const currentUser = JSON.parse(currentUserString);
