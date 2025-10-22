@@ -1,0 +1,26 @@
+<!-- <h1 mat-dialog-title>ajouter membre</h1>
+<button mat-raised-button class="btnAddContact" (click)="newContact()" > Ajouter contact </button> -->
+
+<div class="dialogHeader">
+    <div class="dialogCloseIcon" style="right: 5px !important; top: 10px!important;" (click)="onNoClick()">
+        <mat-icon aria-hidden="false" class="iconColor" aria-label="close icon" style="margin-left: 0px;">close</mat-icon>
+    </div>
+</div>
+<div class="content-creat-project" mat-dialog-content fxLayout="column">
+    <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="4 / 4"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+    <div style="text-align: center; margin-top: 50px; margin-bottom: 11px;">
+        <button mat-raised-button class="nextStepReferent" (click)="onNoClick()">Annuler</button>
+        <button mat-raised-button class="nextStepReferent" style="margin-left: 30px;" (click)="validate()">Valider</button>
+    </div>
+</div>
+
+ 

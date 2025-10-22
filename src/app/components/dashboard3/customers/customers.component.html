@@ -1,0 +1,21 @@
+<mat-card class="bg-accent text-white bg-primary cardWithShadow">
+  <mat-card-content class="p-32">
+    <mat-card-title>Customers</mat-card-title>
+    <div id="chart" class="d-flex flex-column m-t-30 m-b-10">
+      <apx-chart
+        [series]="CustomersChartOption.series"
+        [dataLabels]="CustomersChartOption.dataLabels"
+        [chart]="CustomersChartOption.chart"
+        [stroke]="CustomersChartOption.stroke"
+        [tooltip]="CustomersChartOption.tooltip"
+      ></apx-chart>
+    </div>
+    <div class="hstack align-items-end gap-6">
+      <h4 class="f-w-500 f-s-24 m-0">730</h4>
+      <small class="f-s-14 f-w-500 m-b-0 m-t-10 d-flex"
+        ><i-tabler name="arrow-up-left" class="icon-14"></i-tabler>+9 this
+        week</small
+      >
+    </div>
+  </mat-card-content>
+</mat-card>

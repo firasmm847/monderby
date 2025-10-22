@@ -1,0 +1,169 @@
+<div class="landing-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">Pronos entre amis</div>
+        <nav class="nav-links">
+          <a href="#">Accueil</a>
+          <a href="#">Blog</a>
+          <a href="#">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Pariez entre amis, sur le sport ou des défis du quotidien 🎉⚽
+        </h1>
+        <p class="hero-description">
+          Créez des paris amusants avec vos amis, suivez les scores en temps réel et grimpez dans les classements !
+        </p>
+        <button class="btn-primary" (click)="goToLogin()">
+          Commencer gratuitement 🚀
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">Pourquoi Pronos ?</h2>
+      <div class="features-grid">
+        <div *ngFor="let feature of features" class="feature-card">
+          <div class="feature-icon">
+            <!-- Icône SVG pour Paris Sportifs -->
+            <svg *ngIf="feature.title === 'Paris Sportifs'" class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="10,8 16,12 10,16 10,8"></polygon>
+            </svg>
+            <!-- Icône SVG pour Défis Personnalisés -->
+            <svg *ngIf="feature.title === 'Défis Personnalisés'" class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"></polygon>
+            </svg>
+            <!-- Icône SVG pour Classements -->
+            <svg *ngIf="feature.title === 'Classements'" class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path>
+            </svg>
+            <!-- Icône SVG pour Social -->
+            <svg *ngIf="feature.title === 'Social'" class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <div class="feature-emoji">{{ feature.emoji }}</div>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mockup Section -->
+  <section class="mockup-section">
+    <div class="container">
+      <div class="mockup-content">
+        <h2 class="mockup-title">Une expérience mobile parfaite</h2>
+        <div class="mockup-phone">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="phone-content">
+                <div class="phone-emoji">📱</div>
+                <h3 class="phone-title">Pronos entre amis Mobile</h3>
+                <p class="phone-subtitle">Interface intuitive</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="container">
+      <h2 class="section-title">Ce que disent nos utilisateurs</h2>
+      <div class="testimonials-grid">
+        <div *ngFor="let testimonial of testimonials" class="testimonial-card">
+          <div class="stars">
+            <svg *ngFor="let star of getStarArray(testimonial.rating)" class="star" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <p class="testimonial-text">"{{ testimonial.text }}"</p>
+          <p class="testimonial-author">{{ testimonial.author }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">Prêt à commencer ?</h2>
+        <p class="cta-description">
+          Rejoignez des milliers d'utilisateurs qui s'amusent déjà !
+        </p>
+        <button class="cta-button" (click)="goToSignup()">
+          Créer mon compte gratuitement
+          <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-logo">Pronos</div>
+            <p class="footer-description">
+              La plateforme de paris entre amis la plus fun !
+            </p>
+          </div>
+          <div class="footer-column">
+            <h4 class="footer-column-title">Navigation</h4>
+            <ul class="footer-links">
+              <li><a href="#">Accueil</a></li>
+              <li><a href="#">Fonctionnalités</a></li>
+              <li><a href="#">Prix</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4 class="footer-column-title">Support</h4>
+            <ul class="footer-links">
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4 class="footer-column-title">Légal</h4>
+            <ul class="footer-links">
+              <li><a href="#">CGU</a></li>
+              <li><a href="#">CGV</a></li>
+              <li><a href="#">Confidentialité</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Pronos. Tous droits réservés.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

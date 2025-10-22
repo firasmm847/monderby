@@ -1,0 +1,153 @@
+@if (action === 'Bet') {
+<mat-dialog-content class="mat-typography">
+
+  <!-- Texte étape -->
+  <div class="etape-container">
+    <button mat-button class="btn-retour" *ngIf="step > 1" (click)="previousStep()">
+      ← Retour
+    </button>
+    <div class="etape-text">Étape {{ step }} sur 2</div>
+  </div>
+
+  <!-- Bande de progression -->
+  <mat-progress-bar mode="determinate" [value]="step === 1 ? 50 : 100" color="primary"></mat-progress-bar>
+
+  
+
+  <!-- ÉTAPE 1 -->
+  <div *ngIf="step === 1" class="fade-in">
+    <div class="d-flex align-items-center justify-content-between m-b-16" style="text-align: center;">
+      <h3>Créer un pari</h3>
+      <!--<button mat-icon-button mat-dialog-close class="d-flex justify-content-center">
+        <i-tabler name="x" class="icon-20 d-flex"></i-tabler>
+      </button>-->
+    </div>
+
+    <div class="text-center m-b-16">
+      <div class="icon-circle">
+        <i-tabler name="target" class="icon-30"></i-tabler>
+      </div>
+    </div>
+
+    <div class="text-center m-b-16">
+      <h4 class="f-w-600">{{ data.match.homeTeam.name }} vs {{ data.match.awayTeam.name }}</h4>
+      <p class="f-s-12 text-muted">{{ data.match.date | date: 'dd/MM/yyyy HH:mm' }}</p>
+    </div>
+
+    <form #betForm="ngForm">
+      <div class="text-center m-b-16 p-16" style="background: #f5f5f5; border-radius: 8px;">
+        <p class="f-s-14 m-b-8"><strong>Votre pronostic: {{ data.selectedBet }}</strong></p>
+        <p class="f-w-600 f-s-16 text-success">{{ getPredictionText(data.selectedBet) }}</p>
+      </div>
+
+      <!-- Sélecteur amis -->
+      <div class="m-b-16">
+        <mat-label class="f-s-14 f-w-600 m-b-8 d-block">
+          Inviter des amis ({{ selectedFriends.length }} sélectionné{{ selectedFriends.length > 1 ? 's' : '' }})
+        </mat-label>
+
+        @if (selectedFriends.length > 0) {
+        <div class="selected-friends m-b-12">
+          @for (friend of selectedFriends; track friend.id) {
+          <div class="friend-chip">
+            <img [src]="getAvatarlUrl(friend.imageUrl)" [alt]="friend.fullName"
+              style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;" />
+            <span>{{ friend.fullName }}</span>
+            <button mat-icon-button (click)="removeFriend(friend)" style="width: 20px; height: 20px; margin-left: 4px;">
+              <i-tabler name="x" class="icon-14"></i-tabler>
+            </button>
+          </div>
+          }
+        </div>
+        }
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Ajouter un ami" name="friendSelector"
+            (selectionChange)="addFriend($event.value); $event.source.value = null">
+            @for (friend of friends; track friend.id) {
+            <mat-option [value]="friend" *ngIf="isSelectable(friend)">
+              <div class="d-flex align-items-center gap-8">
+                <img [src]="getAvatarlUrl(friend.imageUrl)" [alt]="friend.fullName"
+                  style="width: 24px; height: 24px; border-radius: 50%" />
+                {{ friend.fullName }}
+              </div>
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Infos pari -->
+      <div class="bet-info-card m-b-16">
+        <h5 class="f-w-600 m-b-12">Détails du pari</h5>
+
+        <div class="info-row">
+          <span class="label">Frais d'entrée:</span>
+          <span class="value">10 jetons</span>
+        </div>
+
+        <div class="info-row">
+          <span class="label">Participants:</span>
+          <span class="value">{{ 1 + selectedFriends.length }}</span>
+        </div>
+
+        <div class="info-row">
+          <span class="label">Cagnotte totale:</span>
+          <span class="value text-primary f-w-600">{{ calculateTotalPot() }} jetons</span>
+        </div>
+
+        <mat-divider class="m-y-12"></mat-divider>
+
+        <div class="info-row highlight">
+          <span class="label f-w-600">Le gagnant remporte:</span>
+          <span class="value text-success f-w-700 f-s-18">{{ calculatePotentialGain() }} jetons</span>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <i-tabler name="alert-circle" class="icon-16 text-warning"></i-tabler>
+        <span class="f-s-12">10 jetons seront débités de votre solde pour créer ce pari</span>
+      </div>
+    </form>
+  </div>
+
+  <!-- ÉTAPE 2 : Défi -->
+  <div *ngIf="step === 2" class="fade-in">
+    <div class="d-flex align-items-center justify-content-between m-b-16">
+      <h3>Choisissez le gain 🎯</h3>
+      <button mat-icon-button mat-dialog-close>
+        <i-tabler name="x" class="icon-20"></i-tabler>
+      </button>
+    </div>
+
+    <p class="text-muted text-center m-b-12">Décrivez votre gain en quelques mots</p>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Votre gain</mat-label>
+      <input matInput [(ngModel)]="objectif" placeholder="Ex: Le perdant paie deux sandwiches 😋" />
+    </mat-form-field>
+
+    <div class="suggestions">
+      <button mat-stroked-button (click)="objectif = 'Faire 100 pompes d\'affilée'" style="margin-right: 20px;">Faire 100 pompes d'affilée</button>
+      <button mat-stroked-button (click)="objectif = 'Manger un piment entier'">Manger un piment entier</button>
+    </div>
+
+    <div class="suggestions" style="margin-top: 20px;">
+      <button mat-stroked-button (click)="objectif = 'Chanter en public'" style="margin-right: 20px;">Chanter en public</button>
+      <button mat-stroked-button (click)="objectif = 'Payer un café à tous'">Payer un café à tous</button>
+    </div>
+  </div>
+
+</mat-dialog-content>
+
+<!-- Boutons d’action en bas -->
+<div mat-dialog-actions class="p-24 p-t-0" style="display: flex; justify-content: space-around;">
+  @if (step === 1) {
+    <button mat-flat-button color="primary" (click)="nextStep()" [disabled]="selectedFriends.length === 0">
+      Continuer
+    </button>
+  } @else {
+    <button mat-flat-button color="primary" (click)="confirmBet()">Créer le pari</button>
+  }
+</div>
+}

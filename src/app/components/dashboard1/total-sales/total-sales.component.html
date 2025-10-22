@@ -1,0 +1,68 @@
+<mat-card class="cardWithShadow overflow-hidden">
+  <mat-card-content>
+    <div class="d-flex align-items-center justify-content-between p-b-20">
+      <mat-card-title>Total Sales</mat-card-title>
+      <div>
+        <mat-form-field class="theme-select" appearance="outline">
+          <mat-select value="one">
+            <mat-option value="one" selected>May 2025</mat-option>
+            <mat-option value="two">June 2025</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="position-relative">
+      <mat-divider></mat-divider>
+    </div>
+    <div
+      class="d-flex d-md-block align-items-center p-y-24 justify-content-between"
+    >
+      <h3 class="f-s-16">Sales Yearly</h3>
+      <h3 class="f-s-24 f-w-500">8,364,398</h3>
+    </div>
+    <div id="chart" class="m-t-20 position-relative">
+      <apx-chart
+        [series]="TotalSaleChartOption.series"
+        [chart]="TotalSaleChartOption.chart"
+        [legend]="TotalSaleChartOption.legend"
+        [labels]="TotalSaleChartOption.labels"
+        [dataLabels]="TotalSaleChartOption.dataLabels"
+        [colors]="TotalSaleChartOption.colors"
+        [stroke]="TotalSaleChartOption.stroke"
+        [tooltip]="TotalSaleChartOption.tooltip"
+        [plotOptions]="TotalSaleChartOption.plotOptions"
+      ></apx-chart>
+      <span class="center-icon">
+        <i-tabler name="shopping-cart" class="icon-30 d-flex"></i-tabler>
+      </span>
+    </div>
+    <div
+      class="d-flex align-items-center justify-content-between m-t-20 p-y-15"
+    >
+      <h6 class="f-s-16 d-flex gap-6 align-items-center">
+        <span class="m-r-5"
+          ><i-tabler
+            name="circle-filled"
+            class="text-secondary icon-12 d-flex"
+          ></i-tabler></span
+        >2023
+      </h6>
+      <h6 class="f-s-16 d-flex gap-6 align-items-center">
+        <span class="m-r-5"
+          ><i-tabler
+            name="circle-filled"
+            class="text-primary icon-12 d-flex"
+          ></i-tabler></span
+        >2024
+      </h6>
+      <h6 class="f-s-16 d-flex gap-6 align-items-center">
+        <span class="m-r-5"
+          ><i-tabler
+            name="circle-filled"
+            class="text-warning icon-12 d-flex"
+          ></i-tabler></span
+        >2025
+      </h6>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,22 @@
+<mat-card class="bg-secondary text-white cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Monthly Earnings</mat-card-title>
+    <div id="chart" class="d-flex flex-col m-t-30 m-b-10">
+      <apx-chart
+        [series]="MonthEarningsChartOption.series"
+        [dataLabels]="MonthEarningsChartOption.dataLabels"
+        [chart]="MonthEarningsChartOption.chart"
+        [stroke]="MonthEarningsChartOption.stroke"
+        [tooltip]="MonthEarningsChartOption.tooltip"
+        [plotOptions]="MonthEarningsChartOption.plotOptions"
+      ></apx-chart>
+    </div>
+    <div class="hstack align-items-end gap-6">
+      <h4 class="f-w-500 f-s-24 m-0">$39,358</h4>
+      <span class="f-s-14 f-w-500 m-b-0 m-t-10 d-flex"
+        ><i-tabler name="arrow-up-left" class="icon-14"></i-tabler>+9 this
+        week</span
+      >
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,23 @@
+<!-- <h2 class="font-medium" mat-dialog-title><strong>{{action}}</strong></h2> -->
+<div class="p-30">
+  <h5 class="mat-h3 f-s-18 m-0 m-b-20">Are you Sure to delete ?</h5>
+
+  <div class="d-flex align-items-center">
+    <img
+      class="rounded"
+      alt="products"
+      width="90"
+      height="70"
+      [src]="local_data.imagePath"
+    />
+    <h6 class="f-w-500 f-s-18 m-0 lh-sm m-l-15">
+      {{ local_data.Name }}
+    </h6>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-flat-button (click)="doAction()" color="primary" class="text-white">
+    {{action}}
+  </button>
+  <button mat-button color="primary" (click)="closeDialog()">Cancel</button>
+</div>

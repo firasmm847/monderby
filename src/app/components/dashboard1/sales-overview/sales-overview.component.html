@@ -1,0 +1,44 @@
+<mat-card class="cardWithShadow overflow-hidden">
+  <mat-card-content class="p-b-12">
+    <div class="d-sm-flex justify-content-between">
+      <mat-card-title>Sales Overview</mat-card-title>
+
+      <div>
+        <div class="d-flex align-items-center gap-16">
+          <div class="d-flex align-items-center gap-12">
+            <i-tabler
+              name="circle-filled"
+              class="text-secondary icon-12 d-flex"
+            ></i-tabler>
+            <div class="d-flex">
+              <span class="f-s-14">Ample</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-12">
+            <i-tabler
+              name="circle-filled"
+              class="text-primary icon-12 d-flex"
+            ></i-tabler>
+            <div class="d-flex">
+              <span class="f-s-14">Pixel admin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="m-t-30">
+      <apx-chart
+        [series]="SalesChartOption.series"
+        [dataLabels]="SalesChartOption.dataLabels"
+        [chart]="SalesChartOption.chart"
+        [legend]="SalesChartOption.legend"
+        [xaxis]="SalesChartOption.xaxis"
+        [yaxis]="SalesChartOption.yaxis"
+        [grid]="SalesChartOption.grid"
+        [stroke]="SalesChartOption.stroke"
+        [tooltip]="SalesChartOption.tooltip"
+        [plotOptions]="SalesChartOption.plotOptions"
+      ></apx-chart>
+    </div>
+  </mat-card-content>
+</mat-card>

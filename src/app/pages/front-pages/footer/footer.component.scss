@@ -1,0 +1,24 @@
+
+.footer-content{
+  //background-image: url('assets/images/leagues/gazon.jpg');background-image: url('assets/images/leagues/gazon.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  .custom-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 15px;
+  }
+}
+
+.imgStyleDash {
+  position: absolute;
+}
+
+.down-msg {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 30px !important;
+  color: #fb9778;
+}

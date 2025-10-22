@@ -1,0 +1,18 @@
+<mat-card class="cardWithShadow overflow-hidden">
+  <div class="row">
+    @for(topcard of topcards; track topcard) {
+    <div class="col-lg-3 col-sm-6 col-6 b-r-1">
+      <div class="p-24">
+        <button mat-fab class="bg-light-{{ topcard.color }} text-{{ topcard.color }} icon-48">
+          <i-tabler name="{{ topcard.icon }}" class="icon-22 d-flex"></i-tabler>
+        </button>
+        <h4 class="mat-title m-b-0 m-t-30 f-s-24 f-w-500">
+          {{ topcard.title }}&nbsp;<span class="text-{{ topcard.status }} f-s-14">{{ topcard.percent }}%</span>
+        </h4>
+        <small class="text-muted"> {{ topcard.subtitle }} </small>
+      </div>
+    </div>
+    }
+
+  </div>
+</mat-card>

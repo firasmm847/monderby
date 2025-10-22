@@ -1,0 +1,144 @@
+<div class="ranking-container">
+  <!-- Header -->
+  <div class="ranking-header">
+    <h2>Classement</h2>
+    <button class="create-contest-btn" (click)="createContest()">
+      Créer un concours
+    </button>
+  </div>
+
+  <!-- Time Period Tabs -->
+  <div class="time-tabs">
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'week'"
+      (click)="setActiveTab('week')">
+      Cette semaine
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'month'"
+      (click)="setActiveTab('month')">
+      Ce mois
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'allTime'"
+      (click)="setActiveTab('allTime')">
+      Tout temps
+    </button>
+  </div>
+
+  <!-- Weekly Podium Section -->
+  <div class="podium-section">
+    <div class="podium-header">
+      <span class="podium-icon">🏆</span>
+      <h3>Podium de la semaine</h3>
+    </div>
+    
+    <div class="podium-container" *ngIf="players[1]">
+      <!-- Second Place -->
+      <div class="podium-player second-place">
+        <div class="player-avatar">
+          <img src="/assets/images/profile/user-2.jpg" [alt]="players[0].username">
+          <div class="badge silver-badge">🥈</div>
+        </div>
+        <div class="player-info">
+          <h4>{{ players[1].username }}</h4>
+          <p>{{ players[1].tokens }} tokens</p>
+        </div>
+        <div class="podium-bar second-bar"></div>
+      </div>
+
+      <!-- First Place -->
+      <div class="podium-player first-place" *ngIf="players[0]">
+        <div class="player-avatar">
+          <img src="/assets/images/profile/user-2.jpg" [alt]="players[0].username">
+          <div class="badge crown-badge">👑</div>
+        </div>
+        <div class="player-info">
+          <h4>{{ players[0].username }}</h4>
+          <p>{{ players[0].tokens }} tokens</p>
+        </div>
+        <div class="podium-bar first-bar"></div>
+      </div>
+
+      <!-- Third Place -->
+      <div class="podium-player third-place" *ngIf="players[2]">
+        <div class="player-avatar">
+          <img src="/assets/images/profile/user-2.jpg" [alt]="players[2].username">
+          <div class="badge bronze-badge">🥉</div>
+        </div>
+        <div class="player-info">
+          <h4>{{ players[2].username }}</h4>
+          <p>{{ players[2].tokens }} tokens</p>
+        </div>
+        <div class="podium-bar third-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tournament Section -->
+  <!--<div class="tournament-section">
+    <div class="tournament-header">
+      <div class="trophy-icon">🏆</div>
+      <div class="tournament-info">
+        <h3>{{ upcomingTournament.name }}</h3>
+        <p class="tournament-details">{{ upcomingTournament.league }} - {{ upcomingTournament.startDate }}</p>
+        <div class="tournament-meta">
+          <span class="tournament-date">📅 18-25 Sept</span>
+          <span class="tournament-participants">👥 {{ upcomingTournament.participants }} participants</span>
+        </div>
+      </div>
+    </div>
+    <button class="participate-btn" (click)="participateInTournament()">
+      Participer au tournoi
+    </button>
+  </div>-->
+
+  <!-- Full Ranking List -->
+  <div class="ranking-list">
+    <h3>Classement complet</h3>
+    <div class="ranking-item" 
+         *ngFor="let player of players; let index = index;" 
+         [class.current-user]="player.id === currentUser.id">
+      <div class="position-badge">
+        {{ (index + 1)}}
+      </div>
+      
+      <div class="user-badge">
+        <!--<span *ngIf="user.badge === 'crown'">👑</span>
+        <span *ngIf="user.badge === 'silver'">🥈</span>
+        <span *ngIf="user.badge === 'bronze'">🥉</span>
+        <span *ngIf="user.badge === 'user'">✓</span>
+        <span *ngIf="user.position > 3 && user.badge !== 'user'">💎</span>-->
+        <span *ngIf="index === 0">👑</span>
+        <span *ngIf="index === 1">🥈</span>
+        <span *ngIf="index === 2">🥉</span>
+        <span *ngIf="index === 3">✓</span>
+        <span *ngIf="index > 3">💎</span>
+      </div>
+      
+      <div class="user-avatar-small">
+        <img src="/assets/images/profile/user-2.jpg" [alt]="player.name">
+      </div>
+      
+      <div class="user-details">
+        <h4>{{ player.username }}</h4>
+        <div class="user-stats">
+          <span>{{ player.played }} paris</span>
+          <span>{{ player.won }}% victoires</span>
+        </div>
+      </div>
+      
+      <div class="user-tokens">
+        <span>{{ player.tokens }}</span>
+        <small>tokens</small>
+      </div>
+
+      <div class="user-label" *ngIf="player.id === currentUser.id">
+        <span class="vous-badge">Vous</span>
+      </div>
+    </div>
+  </div>
+</div>

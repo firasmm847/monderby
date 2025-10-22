@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Dans ton styles.scss global
+.success-snackbar {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+
+.notif-nbr{
+  position: absolute;
+  top: -6px;
+  left: 21px;
+  background: red;
+  border-radius: 50%;
+  font-size: 12px;
+  padding: 3px;
+  color: white;
+  font-weight: 600;
+  font-family: Arial;
+  min-width: 20px;
+}
+
+:root {
+  --primary-color: #3CCF91;
+  --primary-hover: #2db67d;
+  --dark-color: #1E2A38;
+  --light-gray: #8B9AAA;
+  --background: #F5F7FA;
+  --border-color: #E8EDF3;
+  --warning-color: #FFB800;
+  --error-color: #E63946;
+}

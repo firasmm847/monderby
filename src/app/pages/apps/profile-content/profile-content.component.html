@@ -1,0 +1,124 @@
+<div class="profile-container">
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div>
+      <!--<img src="/assets/images/profile/user-2.jpg" [alt]="userData?.fullName">-->
+      <div class="profile-border profile-avatar d-flex align-items-center justify-content-center rounded-circle">
+                <img  [src]="img" class="profile-pic rounded-circle w-100 h-100 object-cover"
+                  alt="user" />
+                <!--<div style="height: 92px; overflow: hidden; border: 3px solid #a1a1a1; border-radius: 50%;">
+                  <img class="profile-pic rounded-circle w-100 h-100 object-cover" alt="" [src]="img"> 
+                </div>-->
+      </div>
+      <div style="margin-top: -40px; position: absolute; margin-left: 60px;">
+                  <label for="fileInput" class="custom-file-input">
+                    <img src="assets/img/camera.png" alt="Choisir un fichier" class="custom-icon">
+                  </label>
+                  <input type="file" accept="image/*" (change)="onFileSelected($event)" id="fileInput" class="hidden-input"/>
+      </div>
+      <div class="online-status" *ngIf="userProfile.isOnline"></div>
+    </div>
+    
+    <div class="profile-info">
+      <h2>{{userData?.fullName}}</h2>
+      <p class="username">{{ userData?.fullName }}</p>
+    </div>
+
+    <div class="profile-stats-header">
+      <div class="stat-item">
+        <span class="stat-number">{{ userData?.tokens }}</span>
+        <span class="stat-label">Tokens</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">#{{ ranking }}</span>
+        <span class="stat-label">Rang</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" *ngIf="player?.played > 0">{{ (player?.won / player?.played) * 100 }}%</span>
+        <span class="stat-number" *ngIf="!player || player?.played == 0">0%</span>
+        <span class="stat-label">Victoires</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Tabs -->
+  <div class="profile-tabs">
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'stats'"
+      (click)="setActiveTab('stats')">
+      <span class="tab-icon">{{ getTabIcon('stats') }}</span>
+      Statistiques
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'history'"
+      (click)="setActiveTab('history')">
+      <span class="tab-icon">{{ getTabIcon('history') }}</span>
+      Historique
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'settings'"
+      (click)="setActiveTab('settings')">
+      <span class="tab-icon">{{ getTabIcon('settings') }}</span>
+      Paramètres
+    </button>
+  </div>
+
+  <!-- Tab Content Container -->
+  <div class="tab-content">
+    <!-- Statistics Tab -->
+    <div class="stats-content" *ngIf="activeTab === 'stats'">
+      <div class="stats-grid">
+        <!-- Ranking Card -->
+        <div class="stat-card">
+          <div class="stat-icon">{{ getStatIcon('ranking') }}</div>
+          <div class="stat-number">{{ ranking }}</div>
+          <div class="stat-label">{{ profileStats.rankingLabel }}</div>
+        </div>
+
+        <!-- Win Rate Card -->
+        <div class="stat-card">
+          <div class="stat-icon">{{ getStatIcon('winRate') }}</div>
+          <div class="stat-number" *ngIf="player?.played > 0">{{ (player?.won / player?.played) * 100 }}%</div>
+          <div class="stat-number" *ngIf="!player || player?.played == 0">0%</div>
+          <div class="stat-label">{{ profileStats.winRateLabel }}</div>
+        </div>
+
+        <!-- Tokens Card -->
+        <div class="stat-card">
+          <div class="stat-icon">{{ getStatIcon('tokens') }}</div>
+          <div class="stat-number">{{ userData?.tokens }}</div>
+          <div class="stat-label">{{ profileStats.tokensLabel }}</div>
+        </div>
+
+        <!-- Total Bets Card -->
+        <div class="stat-card">
+          <div class="stat-icon">{{ getStatIcon('totalBets') }}</div>
+          <div class="stat-number" *ngIf="player?.played > 0">{{ player?.played }}</div>
+          <div class="stat-number" *ngIf="!player">0</div>
+          <div class="stat-label">{{ profileStats.totalBetsLabel }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Tab -->
+    <div class="history-content" *ngIf="activeTab === 'history'">
+      <div class="placeholder-content">
+        <div class="placeholder-icon">📋</div>
+        <h3>Historique des paris</h3>
+        <p>Votre historique de paris apparaîtra ici</p>
+      </div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div class="settings-content" *ngIf="activeTab === 'settings'">
+      <div class="placeholder-content">
+        <div class="placeholder-icon">⚙️</div>
+        <h3>Paramètres du profil</h3>
+        <p>Options de configuration du profil</p>
+      </div>
+    </div>
+  </div>
+</div>

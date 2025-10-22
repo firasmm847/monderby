@@ -1,0 +1,116 @@
+<mat-card class="mat-card-top notes-app cardWithShadow overflow-hidden">
+  <mat-sidenav-container [ngClass]="{
+      'side-panel-opened': sidePanelOpened(),
+      'side-panel-closed': !sidePanelOpened()
+    }" class="h-100">
+    <mat-sidenav #matchslist [mode]="isOver() ? 'over' : 'side'" [opened]="!isOver()" (open)="sidePanelOpened.set(true)"
+      (close)="sidePanelOpened.set(false)" style="width: 290px">
+      <div class="p-16">
+        <mat-form-field appearance="outline" class="w-100 hide-hint">
+          <input matInput type="text" (keyup)="applyFilter($event)" placeholder="Search Matchs" />
+          <mat-icon matSuffix>
+            <i-tabler name="search" class="icon-20 d-flex m-t-2"></i-tabler>
+          </mat-icon>
+        </mat-form-field>
+      </div>
+      <ng-scrollbar class="position-relative" style="height: calc(100vh - 215px)">
+        <h4 class=" f-s-16 f-w-600 p-x-16 m-t-16">All Leagues</h4>
+
+        <mat-nav-list class="p-x-16">
+          <mat-list-item class="notes-item rounded m-b-8 bg-light-primary" (click)="onSelectLeague(null)" style="background-color: #dff6ec !important;"
+            [class.selected]="null === selectedLeague()">
+            
+            <span class="note-title  f-w-500 text-primary" matListItemTitle>
+              <img src="/assets/images/leagues/allleagues.jpg" alt="all flag" width="24" height="24" style="margin-right: 10px; position: relative; top: 6px;">All</span>
+            <div class="d-flex justify-content-between">
+              <span class="note-time f-s-12 f-w-500">All</span>
+              <!--<span (click)="removeLeague(league); $event.stopPropagation()" class="remove-note" matTooltip="Delete">
+                <i-tabler name="trash" class="icon-16"></i-tabler>
+              </span>-->
+            </div>
+          </mat-list-item>
+          @if(leagues.length > 0) { @for(league of leagues; track league.id) {
+          <mat-list-item class="notes-item rounded m-b-8 bg-light-primary" (click)="onSelectLeague(league)" style="background-color: #dff6ec !important;"
+            [class.selected]="league === selectedLeague()">
+            
+            <span class="note-title  f-w-500 text-primary" matListItemTitle>
+              <img  [src]="getLeaguelUrl(league.imageUrl)" alt="{{ league.country }} flag" width="24" height="16" style="margin-right: 10px; position: relative; top: 3px;">{{ league.name }}</span>
+            <div class="d-flex justify-content-between">
+              <span class="note-time f-s-12 f-w-500">{{
+                league.name
+                }}</span>
+              <span (click)="removeLeague(league); $event.stopPropagation()" class="remove-note" matTooltip="Delete">
+                <i-tabler name="trash" class="icon-16"></i-tabler>
+              </span>
+            </div>
+          </mat-list-item>
+          } } @else {
+          <div class="p-15 bg-light-primary text-primary rounded m-t-20 text-center">
+            <span class="m-0 f-s-14">No Leagues Found</span>
+          </div>
+          }
+        </mat-nav-list>
+      </ng-scrollbar>
+    </mat-sidenav>
+    <mat-toolbar class="b-b-1">
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <button (click)="matchslist.toggle()" class="d-flex" mat-icon-button>
+          <i-tabler name="menu-2" class="icon-20"></i-tabler>
+        </button>
+        <button mat-flat-button (click)="addMatchClick()" style="display: none;">Add Matchs</button>
+      </div>
+    </mat-toolbar>
+    <ng-scrollbar class="position-relative bg-white" style="height: calc(100vh - 210px)">
+      <mat-card-content>
+        <div class="row">
+          @if (selectedLeagueMatchs().length > 0) {
+            @for (match of selectedLeagueMatchs(); track match.id) {
+              <div class="col-sm-6 col-lg-4">
+                <mat-card class="cardWithShadow">
+                  <mat-card-content class="text-center">
+                    <span class="d-block f-s-12 m-b-12 text-muted">{{ formatDate(match.date) }}</span>
+                    <div class="d-flex justify-content-around align-items-center">
+                      <div class="d-flex flex-column align-items-center" style="flex-direction: column !important;">
+                        <img
+                          [src]="match.homeTeam.image || 'https://crests.football-data.org/65.svg'"
+                          alt="{{ match.homeTeam }}"
+                          width="40"
+                          height="40"
+                        />
+                        <span class="f-w-600 f-s-13 m-t-4">{{ getShortTeamName(match.homeTeam.name) }}</span>
+                      </div>
+
+                      <span class="f-w-600 f-s-16">vs</span>
+
+                      <div class="d-flex flex-column align-items-center" style="flex-direction: column !important;">
+                        <img
+                          [src]="match.awayTeam.image || 'https://crests.football-data.org/65.svg'"
+                          alt="{{ match.awayTeam }}"
+                          width="40"
+                          height="40"
+                        />
+                        <span class="f-w-600 f-s-13 m-t-4">{{ getShortTeamName(match.awayTeam.name) }}</span>
+                      </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-12 m-t-16">
+                      <button mat-stroked-button style="color: #3ccf91;" (click)="openDialog('Bet', {match: match, selectedBet: '1'})">1</button>
+                      <button mat-stroked-button style="color: #3ccf91;" (click)="openDialog('Bet', {match: match, selectedBet: 'X'})">X</button>
+                      <button mat-stroked-button style="color: #3ccf91;" (click)="openDialog('Bet', {match: match, selectedBet: '2'})">2</button>
+                    </div>
+
+                    <span class="d-block f-s-12 m-t-12 text-muted">Mise fixe : 90 jetons</span>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            }
+          } @else {
+            <div class="col-12 text-center">
+              <p class="f-s-16 text-muted">Aucun match disponible pour cette ligue.</p>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </ng-scrollbar>
+  </mat-sidenav-container>
+</mat-card>

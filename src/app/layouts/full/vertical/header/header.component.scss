@@ -1,0 +1,301 @@
+/* Header Toolbar Styles */
+.hikmet-header {
+  background: white !important;
+  border-bottom: 1px solid #E8EDF3;
+  height: 64px;
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo Section */
+.logo-section {
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3CCF91;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+/* Navigation Section */
+.nav-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.nav-button {
+  color: #8B9AAA !important;
+  font-weight: 500 !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  min-width: auto !important;
+  height: 40px !important;
+}
+
+.nav-button:hover {
+  background-color: #F5F7FA !important;
+  color: #1E2A38 !important;
+}
+
+.nav-button.active {
+  background-color: #3CCF91 !important;
+  color: white !important;
+}
+
+/* Notification Badge */
+.notification-btn {
+  position: relative;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -7px;
+  right: -18px;
+  background: #E63946;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+}
+
+/* Action Section */
+.action-section {
+  flex-shrink: 0;
+}
+
+.create-button {
+  background-color: #3CCF91 !important;
+  color: white !important;
+  border-radius: 20px !important;
+  padding: 8px 20px !important;
+  font-weight: 500 !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.create-button:hover {
+  background-color: #2db67d !important;
+  transform: translateY(-1px);
+}
+
+.create-button mat-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-section {
+    display: none;
+  }
+  
+  .header-container {
+    justify-content: space-between;
+  }
+  
+  .create-button .mat-button-wrapper {
+    padding: 0 !important;
+  }
+  
+  .create-button {
+    min-width: auto !important;
+    padding: 8px 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hikmet-header {
+    padding: 0 12px;
+  }
+  
+  .create-button span:not(.mat-icon) {
+    display: none;
+  }
+  
+  .create-button {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    min-width: 40px !important;
+  }
+}
+
+/* Header Mobile Simplifié */
+.mobile-header {
+  background: white !important;
+  border-bottom: 1px solid #E8EDF3;
+  height: 56px !important;
+  padding: 0 16px !important;
+  display: none;
+}
+
+.mobile-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.mobile-create-btn {
+  background-color: #3CCF91 !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.menu-toggle {
+  color: #8B9AAA !important;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #E8EDF3;
+  z-index: 1000;
+  display: none;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-nav-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 0 calc(env(safe-area-inset-bottom) + 8px);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none !important;
+  border: none !important;
+  padding: 6px 8px !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  color: #8B9AAA !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  min-width: auto !important;
+  height: auto !important;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+}
+
+.nav-item mat-icon {
+  font-size: 20px !important;
+  height: 20px !important;
+  width: 20px !important;
+  margin-bottom: 2px !important;
+  color: inherit !important;
+}
+
+.nav-item span {
+  font-size: 10px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.nav-item.active {
+  color: #3CCF91 !important;
+  background-color: rgba(60, 207, 145, 0.1) !important;
+}
+
+.nav-item:hover:not(.active) {
+  color: #1E2A38 !important;
+  background-color: #F5F7FA !important;
+}
+
+/* Notification Badge sur bottom nav */
+.notification-item {
+  position: relative;
+}
+
+.notification-dot {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  background: #E63946;
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  /* Cacher la toolbar desktop */
+  .hikmet-header {
+    display: none !important;
+  }
+  
+  /* Afficher la navigation mobile */
+  .mobile-header {
+    display: flex !important;
+  }
+  
+  .bottom-nav {
+    display: block !important;
+  }
+  
+  /* Ajouter padding bottom au contenu pour éviter que la bottom nav le cache */
+  .main-content {
+    padding-bottom: 70px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Cacher la navigation mobile sur desktop */
+  .mobile-header,
+  .bottom-nav {
+    display: none !important;
+  }
+}
+
+/* Safe area pour iPhone avec encoche */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottom-nav-container {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 8px);
+  }
+}

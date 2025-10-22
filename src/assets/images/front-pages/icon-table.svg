@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24" width="25" height="24">
+	<title>icon-table</title>
+	<style>
+		.s0 { opacity: .2;fill: #fb9778 } 
+		.s1 { fill: #fb9778 } 
+	</style>
+	<path class="s0" d="m8.8 9.8l-0.1 8.9h-5.2v-9z"/>
+	<path class="s1" d="m21.5 4.5h-18q-0.3 0-0.5 0.2-0.2 0.2-0.3 0.6v12.7c0 0.4 0.2 0.8 0.5 1.1 0.3 0.2 0.7 0.4 1.1 0.4h16.4c0.4 0 0.8-0.2 1.1-0.4 0.3-0.3 0.5-0.7 0.5-1.1v-12.8q-0.1-0.3-0.3-0.5-0.2-0.2-0.5-0.2zm-17.3 6h3.8v3h-3.7zm5.2 0h11.3v3h-11.3zm11.3-4.5v3h-16.5v-3zm-16.5 9h3.7v3h-3.7zm16.5 3h-11.3v-3h11.3z"/>
+</svg>

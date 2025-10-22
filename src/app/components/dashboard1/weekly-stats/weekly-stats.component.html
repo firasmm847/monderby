@@ -1,0 +1,59 @@
+<mat-card class="cardWithShadow overflow-hidden">
+  <mat-card-content class="m-b-20">
+    <div class="d-flex align-items-center justify-content-between">
+      <mat-card-title>Weekly Stats</mat-card-title>
+      <div>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          class="d-flex align-items-center justify-content-center"
+        >
+          <i-tabler name="dots" class="icon-20 d-flex"></i-tabler>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item>
+            <span>Action</span>
+          </button>
+          <button mat-menu-item>
+            <span>Another Action</span>
+          </button>
+          <button mat-menu-item>
+            <span>Something else here</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+    @for(stat of stats; track stat) {
+    <div class="m-t-32">
+      <div class="d-flex align-items-center">
+        <span
+          class="text-{{ stat.color }} bg-{{
+            stat.color
+          }} rounded-circle icon-40 d-flex align-items-center justify-content-center"
+        >
+          <i-tabler
+            name="{{ stat.icon }}"
+            class="icon-20 d-flex text-white"
+          ></i-tabler>
+        </span>
+
+        <div class="m-l-16 m-r-auto">
+          <h6 class="f-s-16 f-w-600">{{ stat.title }}</h6>
+          <span class="f-s-14">{{ stat.subtitle }}</span>
+        </div>
+        <span class="bg-light rounded f-w-500 p-6 p-y-4 f-s-12">
+          +{{ stat.percent }}%
+        </span>
+      </div>
+    </div>
+    }
+  </mat-card-content>
+  <apx-chart
+    [series]="weeklyCart.series"
+    [plotOptions]="weeklyCart.plotOptions"
+    [chart]="weeklyCart.chart"
+    [tooltip]="weeklyCart.tooltip"
+    [fill]="weeklyCart.fill"
+    [stroke]="weeklyCart.stroke"
+  ></apx-chart>
+</mat-card>

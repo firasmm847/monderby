@@ -1,0 +1,202 @@
+<mat-card class="mat-card-top cardWithShadow">
+  <mat-card-header>
+    <mat-card-title>Mes Paris</mat-card-title>
+    <mat-card-subtitle>Historique</mat-card-subtitle>
+  </mat-card-header>
+
+  <!-- Onglets de filtrage -->
+  <mat-tab-group (selectedTabChange)="onTabChange($event.index === 0 ? 'all' : $event.index === 1 ? 'won' : 'lost')">
+    <mat-tab label="Tous mes paris"></mat-tab>
+    <mat-tab label="Paris gagnés"></mat-tab>
+    <mat-tab label="Paris perdus"></mat-tab>
+  </mat-tab-group>
+
+  <mat-card-content class="p-24">
+    <!-- FILTRE PAR DATE - À AJOUTER ICI -->
+    <!--<div class="date-filter mb-4">
+      <h6 class="mb-3">Filtrer par date :</h6>
+      <div class="date-scroll-container">
+          <div class="date-item" 
+               [class.active]="!selectedDate()"
+               (click)="cancelDate()">
+            <div class="day-name"></div>
+            <div class="day-number">All</div>
+            <div class="matches-count" *ngIf="filteredBets().length > 0">
+              {{ filteredBets().length }}
+            </div>
+          </div>
+        @for (date of weekDates; track date) {
+          <div class="date-item" 
+               [class.active]="isSelectedDate(date)"
+               (click)="selectDate(date)">
+            <div class="day-name">{{ getDayName(date) }}</div>
+            <div class="day-number">{{ getDayNumber(date) }}</div>
+            <div class="matches-count" *ngIf="getMatchesCount(date) > 0">
+              {{ getMatchesCount(date) }}
+            </div>
+          </div>
+        }
+      </div>
+    </div>-->
+    <!-- FIN FILTRE PAR DATE -->
+    <!-- Loading -->
+    @if (loading()) {
+      <div class="text-center p-40">
+        <mat-spinner></mat-spinner>
+        <p class="m-t-16">Chargement de vos paris...</p>
+      </div>
+    }
+
+    <!-- Liste des paris -->
+    @else {
+      @if (filteredBets().length > 0) {
+        <div class="row">
+          @for (bet of filteredBets(); track bet.id) {
+            <div class="col-md-6 col-lg-4 mb-3">
+              <mat-card class="bet-card" [class.user-creator]="isUserCreator(bet)">
+                <mat-card-content class="p-16">
+                  
+                  <!-- Header du pari -->
+                  <div class="text-center mb-3 league-div">
+                    <div class="league-chip">
+                      {{ bet.match.league?.name }}
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-start mb-3" style="margin-bottom: 10px;">
+                    <mat-chip [color]="getStatusColor(bet.status)">
+                      {{ getStatusText(bet.status) }}
+                    </mat-chip>
+                    <span class="text-muted f-s-12">
+                      {{ formatDate(bet.match.date) }}
+                    </span>
+                  </div>
+
+                  <!-- Match -->
+                  <div class="match-info text-center mb-3">
+                    <div class="d-flex justify-content-around align-items-center">
+                      <div class="team">
+                        <img 
+                          src="https://crests.football-data.org/65.svg" 
+                          [alt]="bet.match.homeTeam.name"
+                          width="32" height="32">
+                        <p class="f-s-12 f-w-600 mt-1">{{ getShortTeamName(bet.match.homeTeam.name) }}</p>
+                      </div>
+                      
+                      <span class="f-w-600 f-s-14">{{ bet.match.homeScore }} : {{ bet.match.awayScore }}</span>
+                      
+                      <div class="team">
+                        <img 
+                          src="https://crests.football-data.org/65.svg" 
+                          [alt]="bet.match.awayTeam.name"
+                          width="32" height="32">
+                        <p class="f-s-12 f-w-600 mt-1">{{ getShortTeamName(bet.match.awayTeam.name) }}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Détails du pari -->
+                  <div class="bet-details">
+                    <!-- Choix de l'utilisateur créateur -->
+                    <div class="choice-row d-flex justify-content-between mb-2" style="margin-bottom: 10px;">
+                      <div class="d-flex align-items-center">
+                        <img 
+                          [src]="getAvatarlUrl(bet.user.imageUrl)" 
+                          [alt]="bet.user.fullName"
+                          class="avatar-small me-2">
+                        <span class="f-s-13">{{ bet.user.fullName }}</span>
+                      </div>
+                      <mat-chip class="choice-chip" 
+                               [class.my-choice]="isUserCreator(bet)"
+                               color="primary">
+                        {{ bet.choice }} - {{ getChoiceText(bet.choice) }}
+                      </mat-chip>
+                    </div>
+
+                    <!-- Choix de l'utilisateur invité -->
+                    @if (bet.invitedChoice) {
+                      <div class="choice-row d-flex justify-content-between mb-2" style="margin-bottom: 10px;">
+                        <div class="d-flex align-items-center">
+                          <img 
+                            [src]="getAvatarlUrl(bet.invitedUser.imageUrl)" 
+                            [alt]="bet.invitedUser.fullName"
+                            class="avatar-small me-2">
+                          <span class="f-s-13">{{ bet.invitedUser.fullName }}</span>
+                        </div>
+                        <mat-chip class="choice-chip"
+                                 [class.my-choice]="!isUserCreator(bet)"
+                                 color="accent">
+                          {{ bet.invitedChoice }} - {{ getChoiceText(bet.invitedChoice) }}
+                        </mat-chip>
+                      </div>
+                    } @else {
+                      <div class="choice-row d-flex justify-content-between mb-2">
+                        <div class="d-flex align-items-center">
+                          <img 
+                            [src]="getAvatarlUrl(bet.invitedUser.imageUrl)" 
+                            [alt]="bet.invitedUser.fullName"
+                            class="avatar-small me-2">
+                          <span class="f-s-13">{{ bet.invitedUser.fullName }}</span>
+                        </div>
+                        <span class="text-muted f-s-12">En attente de réponse...</span>
+                      </div>
+                    }
+
+                    <!-- Mise -->
+                    <div class="text-center mt-3 p-2 bg-light rounded">
+                      <span class="f-w-600 text-primary">{{ bet.tokenAmount }} jetons</span>
+                    </div>
+
+                    <!-- 
+                    @if (canRespond(bet)) {
+                      <div class="response-actions mt-3">
+                        <p class="f-s-12 text-center mb-2">Choisissez votre pronostic :</p>
+                        <div class="d-flex justify-content-center gap-2">
+                          <button mat-stroked-button 
+                                  color="primary" 
+                                  [disabled]="bet.choice === '1'"
+                                  (click)="updateResponseBet(bet, '1')">
+                            1
+                          </button>
+                          <button mat-stroked-button 
+                                  color="primary"
+                                  [disabled]="bet.choice === 'X'" 
+                                  (click)="updateResponseBet(bet, 'X')">
+                            X
+                          </button>
+                          <button mat-stroked-button 
+                                  color="primary"
+                                  [disabled]="bet.choice === '2'" 
+                                  (click)="updateResponseBet(bet, '2')">
+                            2
+                          </button>
+                        </div>
+                        <div class="text-center mt-2">
+                          <button mat-button color="warn" (click)="rejectBet(bet)">
+                            Refuser
+                          </button>
+                        </div>
+                      </div>
+                    }-->
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="text-center p-40">
+          <mat-icon class="large-icon text-muted">sports_soccer</mat-icon>
+          <p class="f-s-16 text-muted mt-2">
+            @if (selectedTab() === 'created') {
+              Vous n'avez créé aucun pari pour le moment
+            } @else if (selectedTab() === 'invited') {
+              Vous n'avez reçu aucune invitation de pari
+            } @else {
+              Aucun pari en cours
+            }
+          </p>
+        </div>
+      }
+    }
+  </mat-card-content>
+</mat-card>

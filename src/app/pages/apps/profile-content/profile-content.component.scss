@@ -1,0 +1,408 @@
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Profile Header */
+.profile-header {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.hidden-input {
+  display: none;
+}
+
+.profile-avatar {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.profile-avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #4ECDC4;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.online-status {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  background: #4ECDC4;
+  border: 3px solid white;
+  border-radius: 50%;
+}
+
+.profile-info h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 5px 0;
+}
+
+.username {
+  font-size: 16px;
+  color: #888;
+  margin: 0 0 25px 0;
+}
+
+.profile-stats-header {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 400px;
+  gap: 30px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-item .stat-number {
+  font-size: 20px;
+  font-weight: 700;
+  color: #4ECDC4;
+  margin-bottom: 5px;
+}
+
+.stat-item .stat-label {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Profile Tabs */
+.profile-tabs {
+  display: flex;
+  background: white;
+  border-radius: 15px;
+  padding: 5px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  gap: 5px;
+}
+
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.tab-btn.active {
+  background: #4ECDC4;
+  color: white;
+}
+
+.tab-btn:hover:not(.active) {
+  background: #f0f0f0;
+}
+
+.tab-icon {
+  font-size: 16px;
+}
+
+/* Tab Content */
+.tab-content {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  min-height: 300px;
+}
+
+/* Statistics Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.stat-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 2px solid transparent;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: #4ECDC4;
+}
+
+.stat-card .stat-icon {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.stat-card .stat-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.stat-card .stat-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Placeholder Content */
+.placeholder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 20px;
+  text-align: center;
+  color: #666;
+}
+
+.placeholder-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.placeholder-content h3 {
+  font-size: 24px;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.placeholder-content p {
+  font-size: 16px;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 15px;
+    background-color: white;
+  }
+
+  .profile-header {
+    padding: 25px 20px;
+    margin-bottom: 15px;
+  }
+
+  .profile-avatar img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .online-status {
+    width: 18px;
+    height: 18px;
+    bottom: 3px;
+    right: 3px;
+  }
+
+  .profile-info h2 {
+    font-size: 22px;
+  }
+
+  .profile-stats-header {
+    gap: 20px;
+  }
+
+  .stat-item .stat-number {
+    font-size: 18px;
+  }
+
+  .stat-item .stat-label {
+    font-size: 12px;
+  }
+
+  .profile-tabs {
+    padding: 3px;
+    margin-bottom: 15px;
+    overflow: hidden;
+  }
+
+  .tab-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tab-icon {
+    font-size: 12px;
+    margin-right: 4px;
+  }
+
+  .tab-content {
+    padding: 20px;
+  }
+
+  /* Statistics Grid Mobile */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px 15px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: none;
+    transition: none;
+  }
+
+  .stat-card:hover {
+    transform: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+  }
+
+  .stat-card .stat-icon {
+    font-size: 30px;
+    margin-bottom: 12px;
+    color: #4ECDC4;
+  }
+
+  .stat-card .stat-number {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  .stat-card .stat-label {
+    font-size: 12px;
+    color: #888;
+  }
+
+  .placeholder-content {
+    padding: 40px 15px;
+  }
+
+  .placeholder-icon {
+    font-size: 50px;
+  }
+
+  .placeholder-content h3 {
+    font-size: 20px;
+  }
+
+  .placeholder-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 10px;
+  }
+
+  .profile-header {
+    padding: 20px 15px;
+  }
+
+  .profile-avatar img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .profile-info h2 {
+    font-size: 20px;
+  }
+
+  .username {
+    font-size: 14px;
+  }
+
+  .profile-stats-header {
+    gap: 15px;
+  }
+
+  .stat-item .stat-number {
+    font-size: 16px;
+  }
+
+  .stat-item .stat-label {
+    font-size: 11px;
+  }
+
+  .tab-btn {
+    padding: 6px 8px;
+    font-size: 11px;
+    gap: 3px;
+  }
+
+  .tab-icon {
+    font-size: 11px;
+  }
+
+  .tab-content {
+    padding: 15px;
+  }
+
+  .stat-card {
+    padding: 15px;
+  }
+
+  .stat-card .stat-icon {
+    font-size: 22px;
+  }
+
+  .stat-card .stat-number {
+    font-size: 20px;
+  }
+
+  .stat-card .stat-label {
+    font-size: 12px;
+  }
+
+.custom-icon {
+  width: 30px; /* Ajustez la largeur de l'icône selon vos préférences */
+  height: 30px; /* Ajustez la hauteur de l'icône selon vos préférences */
+}
+
+.custom-file-input {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+}

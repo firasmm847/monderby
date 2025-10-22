@@ -1,0 +1,116 @@
+<mat-card class="cardWithShadow">
+  <mat-card-header class="d-flex justify-content-between">
+    <mat-card-title>Product Performance</mat-card-title>
+
+    <mat-form-field class="theme-select" appearance="outline">
+      <mat-select value="mar">
+        @for(month of months; track month) {
+        <mat-option [value]="month.value">
+          {{ month.viewValue }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="table-responsive m-t-24">
+      <table mat-table [dataSource]="dataSource" class="w-100">
+        <!-- Position Column -->
+        <ng-container matColumnDef="assigned">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 f-s-14 f-s-14"
+          >
+            Assigned
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="d-flex align-items-center gap-16">
+              <img
+                [src]="element.imagePath"
+                alt="users"
+                width="40"
+                class="rounded-circle"
+              />
+            
+                <h6 class="f-s-14 f-w-600 lh-sm">
+                  {{ element.uname }}
+                </h6>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 f-s-14 f-s-14"
+          >
+            Name
+          </th>
+          <td mat-cell *matCellDef="let element" class="f-s-14">
+            {{ element.productName }}
+          </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="priority">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 f-s-14 f-s-14"
+          >
+            Priority
+          </th>
+          <td mat-cell *matCellDef="let element">
+            @if(element.priority == 'low') {
+            <span class="text-white bg-secondary rounded f-w-500 p-6 p-y-4 f-s-12">
+              {{ element.priority | titlecase }}
+            </span>
+            } @if(element.priority == 'medium') {
+            <span
+              class="text-white bg-primary rounded f-w-500 p-6 p-y-4 f-s-12"
+            >
+              {{ element.priority | titlecase }}
+            </span>
+            } @if(element.priority == 'high') {
+            <span
+              class="text-white bg-warning rounded f-w-500 p-6 p-y-4 f-s-12"
+            >
+              {{ element.priority | titlecase }}
+            </span>
+            } @if(element.priority == 'critical') {
+            <span class="text-white bg-error rounded f-w-500 p-6 p-y-4 f-s-12">
+              {{ element.priority | titlecase }}
+            </span>
+            } @if(element.priority == 'moderate') {
+            <span
+              class="text-white bg-success rounded f-w-500 p-6 p-y-4 f-s-12"
+            >
+              {{ element.priority | titlecase }}
+            </span>
+            }
+          </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="budget">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 f-s-14 f-s-14"
+          >
+            Budget
+          </th>
+          <td mat-cell *matCellDef="let element" class="f-s-14">
+            ${{ element.budget }}k
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

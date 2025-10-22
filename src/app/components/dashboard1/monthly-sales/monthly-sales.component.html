@@ -1,0 +1,25 @@
+<mat-card class="cardWithShadow overflow-hidden">
+  <mat-card-content class="p-b-24">
+    <div class="d-flex justify-content-between">
+      <div>
+        <mat-card-subtitle>Monthly Sales</mat-card-subtitle>
+        <mat-card-title class="m-b-0">3,246</mat-card-title>
+      </div>
+
+      <button mat-fab class="icon-48 bg-secondary text-white align-item-center">
+        <i-tabler name="shopping-bag" class="icon-22 d-flex"></i-tabler>
+      </button>
+    </div>
+  </mat-card-content>
+  <div class="d-flex flex-col m-t-5">
+    <apx-chart
+      [series]="MonthlyChartOption.series"
+      [dataLabels]="MonthlyChartOption.dataLabels"
+      [chart]="MonthlyChartOption.chart"
+      [stroke]="MonthlyChartOption.stroke"
+      [colors]="MonthlyChartOption.colors"
+      [fill]="MonthlyChartOption.fill"
+      [tooltip]="MonthlyChartOption.tooltip"
+    ></apx-chart>
+  </div>
+</mat-card>

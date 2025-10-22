@@ -1,0 +1,193 @@
+<!-- my-bets.component.html -->
+<div class="container-fluid">
+  <mat-card>
+    <mat-card-content>
+      <h2>Mes Paris</h2>
+
+      <!-- Loader -->
+      <div *ngIf="loading" class="text-center p-24">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+
+      <mat-tab-group *ngIf="!loading">
+        
+        <!-- Onglet Paris Créés -->
+        <mat-tab label="Paris créés ({{ createdBets.length }})">
+          <div class="p-16">
+            
+            <!-- Message si aucun pari -->
+            <div *ngIf="createdBets.length === 0" class="empty-state">
+              <i-tabler name="inbox" class="icon-48 text-muted"></i-tabler>
+              <p>Vous n'avez créé aucun pari</p>
+            </div>
+
+            <!-- Liste des paris créés -->
+            <div *ngFor="let bet of createdBets" class="bet-card m-b-16">
+              <div class="bet-header">
+                <div>
+                  <h4 class="m-0">
+                    <span *ngIf="bet.type === 'match'">
+                      {{ bet.match?.homeTeam }} vs {{ bet.match?.awayTeam }}
+                    </span>
+                    <span *ngIf="bet.type === 'custom'">
+                      Pari personnalisé
+                    </span>
+                  </h4>
+                  <p class="text-muted f-s-12 m-0">
+                    Créé le {{ bet.createdAt | date:'dd/MM/yyyy HH:mm' }}
+                  </p>
+                </div>
+                
+                <mat-chip [color]="getBetStatusColor(bet.status)" selected>
+                  {{ getBetStatusLabel(bet.status) }}
+                </mat-chip>
+              </div>
+
+              <!-- Objectif pour paris custom -->
+              <div *ngIf="bet.type === 'custom'" class="bet-objective">
+                <p class="f-s-14">{{ bet.objective }}</p>
+                <p class="text-muted f-s-12">Montant max: {{ bet.maxAmount }} €</p>
+              </div>
+
+              <div class="bet-info">
+                <div class="info-item">
+                  <i-tabler name="users" class="icon-16"></i-tabler>
+                  {{ getAcceptedParticipantsCount(bet) }} / {{ bet.participants?.length }} participants
+                </div>
+                <div class="info-item">
+                  <i-tabler name="coins" class="icon-16"></i-tabler>
+                  Cagnotte: {{ bet.totalPot }} jetons
+                </div>
+                <div class="info-item">
+                  <i-tabler name="clock" class="icon-16"></i-tabler>
+                  Deadline: {{ bet.deadline | date:'dd/MM/yyyy HH:mm' }}
+                </div>
+              </div>
+
+              <!-- Participants -->
+              <div class="participants-list">
+                <h5>Participants:</h5>
+                <div class="participant-chips">
+                  <mat-chip-set>
+                    <mat-chip *ngFor="let p of bet.participants">
+                      {{ p.user.name }}
+                      <span class="participant-status" 
+                            [class.accepted]="p.status === 'accepted'"
+                            [class.pending]="p.status === 'pending'"
+                            [class.refused]="p.status === 'refused'">
+                        ({{ getParticipationStatusLabel(p.status) }})
+                      </span>
+                    </mat-chip>
+                  </mat-chip-set>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="bet-actions">
+                <button 
+                  mat-flat-button 
+                  color="primary" 
+                  *ngIf="canValidateWinner(bet)"
+                  (click)="validateWinner(bet)">
+                  <i-tabler name="trophy" class="icon-18 m-r-8"></i-tabler>
+                  Valider le gagnant
+                </button>
+                
+                <button 
+                  mat-stroked-button 
+                  color="warn" 
+                  *ngIf="bet.status === 'open' && !bet.isExpired"
+                  (click)="deleteBet(bet)">
+                  <i-tabler name="trash" class="icon-18 m-r-8"></i-tabler>
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <!-- Onglet Participations -->
+        <mat-tab label="Invitations ({{ participatedBets.length }})">
+          <div class="p-16">
+            
+            <!-- Message si aucune participation -->
+            <div *ngIf="participatedBets.length === 0" class="empty-state">
+              <i-tabler name="mail-opened" class="icon-48 text-muted"></i-tabler>
+              <p>Aucune invitation reçue</p>
+            </div>
+
+            <!-- Liste des participations -->
+            <div *ngFor="let bet of participatedBets" class="bet-card m-b-16">
+              <div class="bet-header">
+                <div>
+                  <h4 class="m-0">
+                    <span *ngIf="bet.type === 'match'">
+                      {{ bet.match?.homeTeam }} vs {{ bet.match?.awayTeam }}
+                    </span>
+                    <span *ngIf="bet.type === 'custom'">
+                      Pari personnalisé
+                    </span>
+                  </h4>
+                  <p class="text-muted f-s-12 m-0">
+                    Créé par {{ bet.creator.name }}
+                  </p>
+                </div>
+                
+                <mat-chip [color]="getBetStatusColor(bet.myParticipation.status)" selected>
+                  {{ getParticipationStatusLabel(bet.myParticipation.status) }}
+                </mat-chip>
+              </div>
+
+              <!-- Objectif -->
+              <div *ngIf="bet.type === 'custom'" class="bet-objective">
+                <p class="f-s-14">{{ bet.objective }}</p>
+              </div>
+
+              <!-- Mon choix si accepté -->
+              <div *ngIf="bet.myParticipation.status === 'accepted' && bet.myParticipation.choice" 
+                   class="my-choice">
+                <strong>Mon choix:</strong> {{ bet.myParticipation.choice }}
+              </div>
+
+              <div class="bet-info">
+                <div class="info-item">
+                  <i-tabler name="coins" class="icon-16"></i-tabler>
+                  Cagnotte: {{ bet.totalPot }} jetons
+                </div>
+                <div class="info-item">
+                  <i-tabler name="clock" class="icon-16"></i-tabler>
+                  Deadline: {{ bet.deadline | date:'dd/MM/yyyy HH:mm' }}
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="bet-actions" *ngIf="canAcceptBet(bet)">
+                <button 
+                  mat-flat-button 
+                  color="primary"
+                  (click)="acceptBet(bet)">
+                  <i-tabler name="check" class="icon-18 m-r-8"></i-tabler>
+                  Accepter (10 jetons)
+                </button>
+                
+                <button 
+                  mat-stroked-button 
+                  color="warn"
+                  (click)="refuseBet(bet)">
+                  <i-tabler name="x" class="icon-18 m-r-8"></i-tabler>
+                  Refuser
+                </button>
+              </div>
+
+              <!-- Gagnant si terminé -->
+              <div *ngIf="bet.status === 'finished' && bet.winner" class="winner-info">
+                <i-tabler name="trophy" class="icon-24 text-warning"></i-tabler>
+                <strong>Gagnant: {{ bet.winner.name }}</strong>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

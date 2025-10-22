@@ -1,0 +1,58 @@
+:host {
+    width: 100%;
+  }
+.payment-failed {
+    background: #f8d7da;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    margin-top: -60px;
+    background: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .icon {
+    font-size: 50px;
+    color: #dc3545;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    color: #333;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  
+  p.message {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .cta {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    text-decoration: none;
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #c82333;
+  }
+  
